@@ -16,7 +16,9 @@ public class CsvReaderImpl implements Reader {
         try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
             BigDecimal bigDecimalPrice = new BigDecimal(0);
             BigDecimal bigDecimalRange;
-            List<String> priceList = stream.collect(Collectors.toList());
+            List<String> priceList = stream
+                    .skip(1)
+                    .collect(Collectors.toList());
             for (String line : priceList) {
                 String[] pricePerRange = line.split(",");
                 String range = pricePerRange[0];
@@ -27,7 +29,6 @@ public class CsvReaderImpl implements Reader {
                     return bigDecimalPrice;
                 }
             }
-            System.out.println("price=" + bigDecimalPrice);
             return bigDecimalPrice;
 
         } catch (IOException e) {
