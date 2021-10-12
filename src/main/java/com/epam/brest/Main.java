@@ -1,20 +1,39 @@
 package com.epam.brest;
 import com.epam.brest.calc.Calc;
+import com.epam.brest.reader.CsvReaderImpl;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] arg) {
+        Boolean readFromFile = false;
+
+        final String PRICE_PER_KG_CSV = "src/main/resources/pricePerKg.csv";
+        final String PRICE_PER_KM_CSV = "src/main/resources/pricePerKm.csv";
+
+        if (arg.length == 1 && arg[0].equals("-csv")) {
+            readFromFile = true;
+        }
 
         BigDecimal weight, pricePerKg, length, pricePerKm;
         try (Scanner scanner = new Scanner(System.in)) {
             do {
-                weight = getValueFromCon(scanner, "Enter weight:");
-                pricePerKg = getValueFromCon(scanner, "Enter pricePerKg:");
-                length = getValueFromCon(scanner, "Enter length:");
-                pricePerKm = getValueFromCon(scanner, "Enter pricePerKm:");
-                System.out.println("Result:" + Calc.handle(weight, pricePerKg, length, pricePerKm));
+
+                if(readFromFile) {
+                    weight = getValueFromCon(scanner, "Enter weight:");
+                    length = getValueFromCon(scanner, "Enter length:");
+                    CsvReaderImpl csvReader = new CsvReaderImpl();
+                    System.out.println("Result:" + Calc.handle(weight, csvReader.readPrices(weight, PRICE_PER_KG_CSV),
+                            length, csvReader.readPrices(length, PRICE_PER_KM_CSV)));
+                } else {
+                    weight = getValueFromCon(scanner, "Enter weight:");
+                    pricePerKg = getValueFromCon(scanner, "Enter pricePerKg:");
+                    length = getValueFromCon(scanner, "Enter length:");
+                    pricePerKm = getValueFromCon(scanner, "Enter pricePerKm:");
+                    System.out.println("Result:" + Calc.handle(weight, pricePerKg, length, pricePerKm));
+                }
                 System.out.println("Enter 'q' for exit or 'c' to continue:");
             } while (userChoice(scanner).equals("c"));
         }
@@ -30,6 +49,7 @@ public class Main {
     private static String userChoice(Scanner scanner) {
         String userChoice = scanner.next();
         while (!userChoice.equals("q") && !userChoice.equals("c")) {
+            System.out.println("Enter 'q' for exit or 'c' to continue!");
             userChoice = scanner.next();
         }
         return userChoice;
