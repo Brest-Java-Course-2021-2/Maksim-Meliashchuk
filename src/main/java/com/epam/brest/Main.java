@@ -1,14 +1,14 @@
 package com.epam.brest;
 import com.epam.brest.calc.Calc;
 import com.epam.brest.reader.CsvReaderImpl;
-
+import com.epam.brest.reader.Reader;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] arg) {
-        Boolean readFromFile = false;
+        boolean readFromFile = false;
 
         final String PRICE_PER_KG_CSV = "src/main/resources/pricePerKg.csv";
         final String PRICE_PER_KM_CSV = "src/main/resources/pricePerKm.csv";
@@ -21,7 +21,7 @@ public class Main {
         try (Scanner scanner = new Scanner(System.in)) {
             do {
                 if(readFromFile) {
-                    CsvReaderImpl csvReader = new CsvReaderImpl();
+                    Reader csvReader = new CsvReaderImpl();
                     weight = getValueFromCon(scanner, "Enter weight:");
                     pricePerKg = csvReader.getValueFromFile(weight, PRICE_PER_KG_CSV);
                     length = getValueFromCon(scanner, "Enter length:");
@@ -41,8 +41,12 @@ public class Main {
     private static BigDecimal getValueFromCon(Scanner scanner, String outputMessage) {
         BigDecimal enteredValue;
         System.out.print(outputMessage);
+        while (!scanner.hasNextBigDecimal()) {
+            System.out.println("Enter the number!");
+            scanner.next();
+        }
         enteredValue = scanner.nextBigDecimal();
-        return enteredValue;
+        return enteredValue ;
     }
 
     private static String userChoice(Scanner scanner) {
