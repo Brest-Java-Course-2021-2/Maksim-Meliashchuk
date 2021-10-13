@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class CsvReaderImpl implements Reader {
 
     @Override
-    public BigDecimal readPrices(BigDecimal value, String filePath) {
+    public BigDecimal getValueFromFile(BigDecimal value, String filePath) {
 
         try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
             BigDecimal bigDecimalPrice = new BigDecimal(0);

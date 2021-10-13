@@ -20,20 +20,19 @@ public class Main {
         BigDecimal weight, pricePerKg, length, pricePerKm;
         try (Scanner scanner = new Scanner(System.in)) {
             do {
-
                 if(readFromFile) {
-                    weight = getValueFromCon(scanner, "Enter weight:");
-                    length = getValueFromCon(scanner, "Enter length:");
                     CsvReaderImpl csvReader = new CsvReaderImpl();
-                    System.out.println("Result:" + Calc.handle(weight, csvReader.readPrices(weight, PRICE_PER_KG_CSV),
-                            length, csvReader.readPrices(length, PRICE_PER_KM_CSV)));
+                    weight = getValueFromCon(scanner, "Enter weight:");
+                    pricePerKg = csvReader.getValueFromFile(weight, PRICE_PER_KG_CSV);
+                    length = getValueFromCon(scanner, "Enter length:");
+                    pricePerKm = csvReader.getValueFromFile(length, PRICE_PER_KM_CSV);
                 } else {
                     weight = getValueFromCon(scanner, "Enter weight:");
                     pricePerKg = getValueFromCon(scanner, "Enter pricePerKg:");
                     length = getValueFromCon(scanner, "Enter length:");
                     pricePerKm = getValueFromCon(scanner, "Enter pricePerKm:");
-                    System.out.println("Result:" + Calc.handle(weight, pricePerKg, length, pricePerKm));
                 }
+                System.out.println("Result:" + Calc.handle(weight, pricePerKg, length, pricePerKm));
                 System.out.println("Enter 'q' for exit or 'c' to continue:");
             } while (userChoice(scanner).equals("c"));
         }
