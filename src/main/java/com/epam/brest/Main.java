@@ -10,8 +10,8 @@ public class Main {
     public static void main(String[] arg) {
         boolean readFromFile = false;
 
-        final String PRICE_PER_KG_CSV = "src/main/resources/pricePerKg.csv";
-        final String PRICE_PER_KM_CSV = "src/main/resources/pricePerKm.csv";
+        final String PRICE_PER_KG_CSV = "pricePerKg.csv";
+        final String PRICE_PER_KM_CSV = "pricePerKm.csv";
 
         if (arg.length == 1 && arg[0].equals("-csv")) {
             readFromFile = true;
