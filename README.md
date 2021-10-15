@@ -1,5 +1,5 @@
 # Maksim-Meliashchuk
-# Сalculator
+# Delivery-cost
 
 Application for calculating the cost of delivery depending on the weight of the cargo and the distance.
 The application works in the mode of entering price data from the command line and in the mode of reading data from files.
