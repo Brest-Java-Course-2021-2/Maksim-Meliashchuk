@@ -1,41 +1,50 @@
 package com.epam.brest.model;
 
+import com.epam.brest.reader.CsvReaderImpl;
+import com.epam.brest.reader.Reader;
 import com.epam.brest.reader.ValueChecker;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import static com.epam.brest.model.StatesType.READ_DATA;
+import static com.epam.brest.model.StatesType.READ_DATA_FROM_FILES;
 
-public class ReadDataFromFile implements State{
+public class ReadDataFromFiles implements State{
 
     public static final int NUMBER_OF_USER_DATA = messagesForReadFromFile.size();
     final Scanner scanner;
-    String filePath;
+    List<String> files = new ArrayList<>();
 
-    public ReadDataFromFile(Scanner scanner, String filePath) {
+    public ReadDataFromFiles(Scanner scanner, String filePathPricePerKg, String filePathPricePerKm) {
         this.scanner = scanner;
-        this.filePath = filePath;
+        this.files.add(filePathPricePerKg);
+        this.files.add(filePathPricePerKm);
     }
 
     @Override
     public State handle() {
-        if (userData.size() < NUMBER_OF_USER_DATA) {
-            System.out.println(messagesForReadFromFile.get(userData.size()));
+        Reader reader = new CsvReaderImpl();
+
+        for (int i = 0; i < NUMBER_OF_USER_DATA; i++) {
+            System.out.println(messagesForReadFromFile.get(i));
             String inputValue = scanner.next();
             if (inputValue.equalsIgnoreCase(COMMAND_TO_EXIT)) {
                 return new Exit();
             } else if (ValueChecker.isCorrectValue(inputValue)) {
-                userData.add(new BigDecimal(inputValue));
+                BigDecimal bigDecimalValue = new BigDecimal(inputValue);
+                userData.add(bigDecimalValue);
+                userData.add(reader.getValueFromFile(bigDecimalValue, files.get(i)));
+            } else {
+                return this;
             }
-        } else {
-            return new Calculation(scanner);
         }
-        return this;
+        return new Calculation(scanner, files.get(0), files.get(1));
     }
 
     @Override
     public StatesType getType() {
-        return READ_DATA;
+        return READ_DATA_FROM_FILES;
     }
 }

@@ -1,11 +1,10 @@
 package com.epam.brest.calc;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface Calc {
 
-    static BigDecimal handle(BigDecimal weight, BigDecimal pricePerKg, BigDecimal length, BigDecimal pricePerKm) {
-        return weight.multiply(pricePerKg).add(length.multiply(pricePerKm));
-    }
+    BigDecimal handle(List<BigDecimal> userData);
 
 }
