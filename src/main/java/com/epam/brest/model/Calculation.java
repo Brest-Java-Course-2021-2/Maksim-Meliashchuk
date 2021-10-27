@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.epam.brest.model.StatesType.CALC;
+import static com.epam.brest.model.StateType.CALC;
 
 public class Calculation implements State {
     Scanner scanner;
@@ -42,7 +42,7 @@ public class Calculation implements State {
     }
 
     @Override
-    public StatesType getType() {
+    public StateType getType() {
         return CALC;
     }
 }

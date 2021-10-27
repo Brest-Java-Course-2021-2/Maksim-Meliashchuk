@@ -16,5 +16,5 @@ public interface State {
 
     State handle();
 
-    StatesType getType();
+    StateType getType();
 }

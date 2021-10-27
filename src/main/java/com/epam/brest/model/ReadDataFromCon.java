@@ -5,7 +5,7 @@ import com.epam.brest.reader.ValueChecker;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-import static com.epam.brest.model.StatesType.READ_DATA_FROM_CON;
+import static com.epam.brest.model.StateType.READ_DATA_FROM_CON;
 
 public class ReadDataFromCon implements State {
 
@@ -33,7 +33,7 @@ public class ReadDataFromCon implements State {
     }
 
     @Override
-    public StatesType getType() {
+    public StateType getType() {
         return READ_DATA_FROM_CON;
     }
 

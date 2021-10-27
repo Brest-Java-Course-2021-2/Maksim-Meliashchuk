@@ -2,7 +2,7 @@ package com.epam.brest;
 import com.epam.brest.model.ReadDataFromCon;
 import com.epam.brest.model.ReadDataFromFiles;
 import com.epam.brest.model.State;
-import com.epam.brest.model.StatesType;
+import com.epam.brest.model.StateType;
 
 import java.util.Scanner;
 
@@ -24,11 +24,10 @@ public class Main {
             if(readFromFile) {
                 currentStatus = new ReadDataFromFiles(scanner, PRICE_PER_KG_CSV, PRICE_PER_KM_CSV);
             } else {
-               currentStatus = new ReadDataFromCon(scanner);
+                currentStatus = new ReadDataFromCon(scanner);
             }
 
-            while (currentStatus.getType() != StatesType.EXIT) {
-             //   System.out.println("current type: " + currentStatus.getType());
+            while (currentStatus.getType() != StateType.EXIT) {
                 currentStatus = currentStatus.handle();
             }
         }

@@ -3,13 +3,15 @@ package com.epam.brest.model;
 import com.epam.brest.reader.CsvReaderImpl;
 import com.epam.brest.reader.Reader;
 import com.epam.brest.reader.ValueChecker;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.epam.brest.model.StatesType.READ_DATA_FROM_FILES;
+import static com.epam.brest.model.StateType.READ_DATA_FROM_FILES;
 
 public class ReadDataFromFiles implements State{
 
@@ -25,7 +27,9 @@ public class ReadDataFromFiles implements State{
 
     @Override
     public State handle() {
-        Reader reader = new CsvReaderImpl();
+
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-config.xml");
+        Reader reader = (CsvReaderImpl) applicationContext.getBean("fileReader");
 
         for (int i = 0; i < NUMBER_OF_USER_DATA; i++) {
             System.out.println(messagesForReadFromFile.get(i));
@@ -33,6 +37,7 @@ public class ReadDataFromFiles implements State{
             if (inputValue.equalsIgnoreCase(COMMAND_TO_EXIT)) {
                 return new Exit();
             } else if (ValueChecker.isCorrectValue(inputValue)) {
+
                 BigDecimal bigDecimalValue = new BigDecimal(inputValue);
                 userData.add(bigDecimalValue);
                 userData.add(reader.getValueFromFile(bigDecimalValue, files.get(i)));
@@ -44,7 +49,7 @@ public class ReadDataFromFiles implements State{
     }
 
     @Override
-    public StatesType getType() {
+    public StateType getType() {
         return READ_DATA_FROM_FILES;
     }
 }

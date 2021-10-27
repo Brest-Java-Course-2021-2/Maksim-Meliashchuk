@@ -1,6 +1,6 @@
 package com.epam.brest.model;
 
-import static com.epam.brest.model.StatesType.EXIT;
+import static com.epam.brest.model.StateType.EXIT;
 
 public class Exit implements State{
     @Override
@@ -9,7 +9,7 @@ public class Exit implements State{
     }
 
     @Override
-    public StatesType getType() {
+    public StateType getType() {
         return EXIT;
     }
 }
