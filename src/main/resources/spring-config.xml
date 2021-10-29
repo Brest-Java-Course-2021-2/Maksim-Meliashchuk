@@ -5,6 +5,12 @@
        https://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean name="fileReader" class="com.epam.brest.reader.CsvReaderImpl"/>
+
     <bean name="readerFromCon" class="com.epam.brest.model.ReadDataFromCon"/>
+
+    <bean name="readerFromFiles" class="com.epam.brest.model.ReadDataFromFiles">
+        <constructor-arg index="0" value="pricePerKg.csv"/>
+        <constructor-arg index="1" value="pricePerKm.csv"/>
+    </bean>
 
 </beans>

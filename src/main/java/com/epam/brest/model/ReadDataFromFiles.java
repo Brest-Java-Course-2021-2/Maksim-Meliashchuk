@@ -20,10 +20,19 @@ public class ReadDataFromFiles implements State{
     static Scanner scanner;
     List<String> files = new ArrayList<>();
 
-    public ReadDataFromFiles(Scanner scanner, String filePathPricePerKg, String filePathPricePerKm) {
+    /*public ReadDataFromFiles(Scanner scanner, String filePathPricePerKg, String filePathPricePerKm) {
         this.scanner = scanner;
         this.files.add(filePathPricePerKg);
         this.files.add(filePathPricePerKm);
+    }*/
+
+    public ReadDataFromFiles(String filePathPricePerKg, String filePathPricePerKm) {
+        this.files.add(filePathPricePerKg);
+        this.files.add(filePathPricePerKm);
+    }
+
+    public static void setScanner(Scanner scanner) {
+        ReadDataFromFiles.scanner = scanner;
     }
 
     @Override
