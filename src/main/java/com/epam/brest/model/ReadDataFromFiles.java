@@ -3,6 +3,7 @@ package com.epam.brest.model;
 import com.epam.brest.reader.CsvReaderImpl;
 import com.epam.brest.reader.Reader;
 import com.epam.brest.reader.ValueChecker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,7 +17,7 @@ import static com.epam.brest.model.StateType.READ_DATA_FROM_FILES;
 public class ReadDataFromFiles implements State{
 
     public static final int NUMBER_OF_USER_DATA = messagesForReadFromFile.size();
-    final Scanner scanner;
+    static Scanner scanner;
     List<String> files = new ArrayList<>();
 
     public ReadDataFromFiles(Scanner scanner, String filePathPricePerKg, String filePathPricePerKm) {

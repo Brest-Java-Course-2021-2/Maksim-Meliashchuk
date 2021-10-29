@@ -34,7 +34,9 @@ public class Calculation implements State {
         }
 
         if (files == null) {
-            return new ReadDataFromCon(scanner);
+            ReadDataFromCon readDataFromCon = new ReadDataFromCon();
+            readDataFromCon.setScanner(scanner);
+            return readDataFromCon;
         } else {
             return new ReadDataFromFiles(scanner, files.get(0), files.get(1));
         }

@@ -2,6 +2,7 @@ package com.epam.brest.model;
 
 import com.epam.brest.reader.ValueChecker;
 
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -10,11 +11,14 @@ import static com.epam.brest.model.StateType.READ_DATA_FROM_CON;
 public class ReadDataFromCon implements State {
 
     public static final int NUMBER_OF_USER_DATA = messagesForConInput.size();
-    final Scanner scanner;
+    Scanner scanner;
 
-    public ReadDataFromCon(Scanner scanner) {
+    public void setScanner(Scanner scanner) {
         this.scanner = scanner;
     }
+
+
+
 
     @Override
     public State handle() {
